@@ -1,0 +1,12 @@
+---
+title: "hw5"
+author: "Stephen Powers"
+date: "11/8/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1 
