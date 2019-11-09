@@ -5,8 +5,30 @@ date: "11/8/2019"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Problem 1 
+
+```{r}
+library(tidyverse)
+
 ```
 
-## Problem 1 
+```{r}
+set.seed(10)
+
+iris_with_missing = iris %>% 
+  map_df(~replace(.x, sample(1:150, 20), NA)) %>%
+  mutate(Species = as.character(Species))
+```
+
+```{r}
+fill_missing = function(x) {
+  if (is.numeric(x)) 
+    {replace_na(x, mean(x, na.rm = TRUE))} 
+  else if (is.character(x)) 
+    {replace_na(x, "virginica")}}
+
+iris_fill = map_df(iris_with_missing, fill_missing)
+```
+
+
+
