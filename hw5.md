@@ -62,3 +62,16 @@ p2_tidy_data %>%
 ![](hw5_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ## Problem 3
+
+``` r
+sim_regression = function(n = 30, beta0 = 2, beta1) {
+  
+  sim_data = tibble(
+    x = rnorm(n, mean = 0, sd = 1),
+    y = beta0 + beta1*x + rnorm(n, mean = 0, sd = sqrt(50))
+  )
+  
+  ls_fit = lm(y ~ x, data = sim_data) %>% 
+    broom::tidy()
+}
+```
