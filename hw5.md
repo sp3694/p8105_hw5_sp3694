@@ -37,3 +37,18 @@ fill_missing = function(x) {
 
 iris_fill = map_df(iris_with_missing, fill_missing)
 ```
+
+## Problem 2
+
+``` r
+p2_data = 
+  list.files("./data/", pattern = ".csv", full.names = TRUE) %>% view
+```
+
+``` r
+p2_tidy_data = 
+  p2_data %>% map_df(read.csv) %>% 
+  mutate(id = tools::file_path_sans_ext(basename(p2_data))) %>% view
+```
+
+## Problem 3
