@@ -40,7 +40,8 @@ p2_data =
 ```{r}
 p2_tidy_data = 
   p2_data %>% map_df(read.csv) %>% 
-  mutate(id = tools::file_path_sans_ext(basename(p2_data))) %>% view
+  mutate(id = tools::file_path_sans_ext(basename(p2_data))) %>% 
+  separate(id, into = c("group", "id_number"), sep = "_") %>% view
 ```
 
 
