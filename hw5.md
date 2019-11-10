@@ -51,7 +51,12 @@ p2_tidy_data =
 ``` r
 p2_tidy_data %>% 
   ggplot(aes(x = week, y = value, color = group, group = observation)) +
-  geom_line()
+  geom_line() +
+  scale_color_viridis(discrete = TRUE) +
+  theme_minimal() +
+  ggtitle("Observations on each subject over time by group") +
+  xlab("Week") +
+  ylab("Values") 
 ```
 
 ![](hw5_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
