@@ -7,10 +7,14 @@ output: github_document
 
 ## Problem 1 
 
-```{r}
-library(tidyverse)
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(viridis)
+library(patchwork)
 ```
+
 
 ```{r}
 set.seed(10)
@@ -41,7 +45,13 @@ p2_data =
 p2_tidy_data = 
   p2_data %>% map_df(read.csv) %>% 
   mutate(id = tools::file_path_sans_ext(basename(p2_data))) %>% 
-  separate(id, into = c("group", "id_number"), sep = "_") %>% view
+  separate(id, into = c("group", "id_number"), sep = "_") %>% 
+  mutate(group = recode(group, "con" = "control", "exp" = "experimental")) %>% 
+  select(group, id_number, everything()) %>% 
+  pivot_longer(week_1:week_8,
+    names_to = "week",
+    values_to = "value",
+    names_prefix = "week_") %>% view
 ```
 
 

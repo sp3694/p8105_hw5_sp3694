@@ -6,21 +6,6 @@ Stephen Powers
 ## Problem 1
 
 ``` r
-library(tidyverse)
-```
-
-    ## ── Attaching packages ────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-
-    ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
-    ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
-    ## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
-    ## ✔ readr   1.3.1     ✔ forcats 0.4.0
-
-    ## ── Conflicts ───────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-
-``` r
 set.seed(10)
 
 iris_with_missing = iris %>% 
@@ -49,7 +34,13 @@ p2_data =
 p2_tidy_data = 
   p2_data %>% map_df(read.csv) %>% 
   mutate(id = tools::file_path_sans_ext(basename(p2_data))) %>% 
-  separate(id, into = c("group", "id_number"), sep = "_") %>% view
+  separate(id, into = c("group", "id_number"), sep = "_") %>% 
+  mutate(group = recode(group, "con" = "control", "exp" = "experimental")) %>% 
+  select(group, id_number, everything()) %>% 
+  pivot_longer(week_1:week_8,
+    names_to = "week",
+    values_to = "value",
+    names_prefix = "week_") %>% view
 ```
 
 ## Problem 3
