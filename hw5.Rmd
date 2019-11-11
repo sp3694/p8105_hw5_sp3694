@@ -127,7 +127,7 @@ sim_results %>%
 
 In the plot above, as effect size (beta1) increases, the power also increases. 
 
-#### Creating two plots: 1) a plot showing the average estimate of β̂ 1 on the y axis and the true value of β1 on the x axis. 2) plot the average estimate of β̂ 1 only in samples for which the null was rejected on the y axis and the true value of β1 on the x axis. 
+#### Creating two plots: 1) a plot showing the average estimate of  beta1 on the y axis and the true value of beta1 on the x axis. 2) plot the average estimate of beta1 only in samples for which the null was rejected on the y axis and the true value of beta1 on the x axis. 
 
 ```{r}
 p1 = 
