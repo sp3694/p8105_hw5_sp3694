@@ -66,6 +66,8 @@ p2_tidy_data %>%
 #### Creating Model
 
 ``` r
+set.seed(10)
+
 sim_regression = function(n = 30, beta0 = 2, beta1) {
   
   sim_data = tibble(
@@ -112,3 +114,38 @@ sim_results %>%
 ```
 
 ![](hw5_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+In the plot above, as effect size (β1) increases, the power also
+increases.
+
+#### Creating two plots: 1) a plot showing the average estimate of β̂ 1 on the y axis and the true value of β1 on the x axis. 2) plot the average estimate of β̂ 1 only in samples for which the null was rejected on the y axis and the true value of β1 on the x axis.
+
+``` r
+p1 = 
+  sim_results %>% 
+  group_by(b1) %>%
+  summarise(mean = mean(b1_estimate)) %>% 
+  ggplot(aes(x = b1, y = mean)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(title = "Average β1 estimate by true β1") +
+  xlab("True β1") +
+  ylab("Mean β1 estimate")
+
+
+p2 = 
+  sim_results %>% 
+  filter(p_value < 0.05) %>% 
+  group_by(b1) %>%
+  summarise(mean = mean(b1_estimate)) %>% 
+  ggplot(aes(x = b1, y = mean)) + 
+  geom_point() +
+  geom_line() +
+  labs(title = "Average β1 estimate by true β1, subset") +
+  xlab("True β1") +
+  ylab("Mean β1 estimate")
+ 
+p1 + p2
+```
+
+![](hw5_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
