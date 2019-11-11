@@ -63,15 +63,23 @@ p2_tidy_data %>%
 
 ## Problem 3
 
+#### Creating Model
+
 ``` r
 sim_regression = function(n = 30, beta0 = 2, beta1) {
   
   sim_data = tibble(
     x = rnorm(n, mean = 0, sd = 1),
-    y = beta0 + beta1*x + rnorm(n, mean = 0, sd = sqrt(50))
-  )
+    y = beta0 + beta1*x + rnorm(n, mean = 0, sd = sqrt(50)))
   
-  ls_fit = lm(y ~ x, data = sim_data) %>% 
-    broom::tidy()
+  ls_fit = lm(y ~ x, data = sim_data)
+  
+  tibble(
+    b1_estimate = broom::tidy(ls_fit)[2, 2] %>% 
+      as.numeric(),
+    p_value = broom::tidy(ls_fit)[2, 5] %>% 
+      as.numeric())
 }
 ```
+
+#### Generate 10000 datasets from the model
