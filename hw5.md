@@ -83,6 +83,8 @@ sim_regression = function(n = 30, beta0 = 2, beta1) {
 }
 ```
 
+#### Generating 10000 datasets from the model
+
 ``` r
 sim_results = tibble(b1 = c(0, 1, 2, 3, 4, 5, 6)) %>% 
   mutate(output_lists = map(.x = b1, ~rerun(10000, sim_regression(beta1 = .x))),
@@ -90,3 +92,23 @@ sim_results = tibble(b1 = c(0, 1, 2, 3, 4, 5, 6)) %>%
   select(-output_lists) %>%
   unnest(estimate_dfs)
 ```
+
+#### Plot showing the proportion of times the null was rejected (the power of the test) on the y axis and the true value of β1 on the x axis.
+
+``` r
+sim_results %>% 
+  group_by(b1) %>%
+  count(reject = p_value < 0.05) %>% 
+  mutate(power = n/sum(n)*100) %>% 
+  filter(reject == TRUE) %>%
+  ggplot(aes(x = b1, y = power)) +
+  geom_point() + 
+  geom_line() +
+  theme_minimal() +
+  labs(title = "True β1 and Power") +
+  xlab("True value of β1") +
+  ylab("Power") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](hw5_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
