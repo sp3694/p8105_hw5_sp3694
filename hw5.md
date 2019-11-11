@@ -61,6 +61,11 @@ p2_tidy_data %>%
 
 ![](hw5_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
+Based on the plot above, it appears the values are higher in the
+experimental group than in the control group. Also, it appears that the
+experimental groups’ values increase over time, but the control groups
+do not.
+
 ## Problem 3
 
 #### Creating Model
@@ -115,7 +120,7 @@ sim_results %>%
 
 ![](hw5_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-In the plot above, as effect size (β1) increases, the power also
+In the plot above, as effect size (beta1) increases, the power also
 increases.
 
 #### Creating two plots: 1) a plot showing the average estimate of β̂ 1 on the y axis and the true value of β1 on the x axis. 2) plot the average estimate of β̂ 1 only in samples for which the null was rejected on the y axis and the true value of β1 on the x axis.
@@ -149,3 +154,10 @@ p1 + p2
 ```
 
 ![](hw5_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+The sample average of the beta1 estimate across tests for which the null
+is rejected is not approximately equal to the true value of beta1. The
+beta1 estimate is higher for true beta1 values that are closer to 0. The
+difference between the beta1 estimate and the true beta1 value decreases
+as the true beta1 values increase because as the true beta1 increases,
+power increases with it.
